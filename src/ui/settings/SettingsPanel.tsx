@@ -1,17 +1,21 @@
 import { Paper, Typography, TextField, Box, Divider } from '@mui/material'
 import { useGCodeStore } from '@/stores/gcodeStore'
 
+const paperSx = { p: 2 }
+const dividerSx = { my: 1 }
+const contentBoxSx = { display: 'flex', flexDirection: 'column', gap: 2 }
+
 export default function SettingsPanel() {
   const printerSettings = useGCodeStore((state) => state.printerSettings)
   const updatePrinterSettings = useGCodeStore((state) => state.updatePrinterSettings)
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={paperSx}>
       <Typography variant="h6" gutterBottom>
         Printer Settings
       </Typography>
-      <Divider sx={{ my: 1 }} />
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Divider sx={dividerSx} />
+      <Box component="div" sx={contentBoxSx}>
         <TextField
           label="Nozzle Diameter (mm)"
           type="number"

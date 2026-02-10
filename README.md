@@ -4,14 +4,24 @@ A desktop application for generating G-code files for 3D FDM printing, with a fo
 
 ## Table of Contents
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Development](#development)
-- [Building](#building)
-- [Project Structure](#project-structure)
-- [Usage](#usage)
-- [Development Roadmap](#development-roadmap)
+- [GCode Generator](#gcode-generator)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Tech Stack](#tech-stack)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Development](#development)
+  - [Building](#building)
+  - [Project Structure](#project-structure)
+  - [Usage](#usage)
+  - [Development Roadmap](#development-roadmap)
+    - [Phase 1: Basic Functionality ✅](#phase-1-basic-functionality-)
+    - [Phase 2: GCode Generation (In Progress)](#phase-2-gcode-generation-in-progress)
+    - [Phase 3: Enhanced Features](#phase-3-enhanced-features)
+    - [Phase 4: Advanced Features](#phase-4-advanced-features)
+  - [Contributing](#contributing)
+  - [Acknowledgments](#acknowledgments)
 
 ## Features
 
@@ -34,7 +44,7 @@ A desktop application for generating G-code files for 3D FDM printing, with a fo
 
 ### Prerequisites
 
-- **Node.js** 18+ ([nodejs.org](https://nodejs.org/))
+- **Node.js** 20.19+ ([nodejs.org](https://nodejs.org/))
 - **Git** (optional, for cloning)
 
 **Optional: Install Git via Chocolatey**
@@ -63,7 +73,15 @@ Opens `http://localhost:5173` with hot reload.
 ```bash
 npm run dev:electron
 ```
-Opens Electron window with dev server.
+This command will:
+1. Start the Vite dev server on `http://localhost:5173`
+2. Wait for the server to be ready
+3. Compile TypeScript files (`electron/main.ts` → `electron/main.js` and `electron/preload.ts` → `electron/preload.js`)
+4. Launch Electron with the dev server
+
+**Note:** The TypeScript compilation step generates `electron/main.js` and `electron/preload.js` from their `.ts` sources. These compiled `.js` files are required for Electron to run.
+
+The Electron window will open automatically and connect to the Vite dev server with hot reload enabled.
 
 ## Building
 

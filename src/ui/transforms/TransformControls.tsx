@@ -1,23 +1,29 @@
 import { Paper, Typography, TextField, Box, Divider, Button } from '@mui/material'
 import { useGCodeStore } from '@/stores/gcodeStore'
 
+const paperSx = { p: 2 }
+const dividerSx = { my: 1 }
+const contentBoxSx = { display: 'flex', flexDirection: 'column', gap: 2 }
+const rowBoxSx = { display: 'flex', gap: 1 }
+const textFieldSx = { flex: 1 }
+
 export default function TransformControls() {
   const transform = useGCodeStore((state) => state.transform)
   const updateTransform = useGCodeStore((state) => state.updateTransform)
   const resetTransform = useGCodeStore((state) => state.resetTransform)
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={paperSx}>
       <Typography variant="h6" gutterBottom>
         Model Transform
       </Typography>
-      <Divider sx={{ my: 1 }} />
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Box>
+      <Divider sx={dividerSx} />
+      <Box component="div" sx={contentBoxSx}>
+        <Box component="div">
           <Typography variant="body2" color="text.secondary" gutterBottom>
             Rotation (degrees)
           </Typography>
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box component="div" sx={rowBoxSx}>
             <TextField
               label="X"
               type="number"
@@ -28,7 +34,7 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
             />
             <TextField
               label="Y"
@@ -40,7 +46,7 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
             />
             <TextField
               label="Z"
@@ -52,15 +58,15 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
             />
           </Box>
         </Box>
-        <Box>
+        <Box component="div">
           <Typography variant="body2" color="text.secondary" gutterBottom>
             Scale
           </Typography>
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box component="div" sx={rowBoxSx}>
             <TextField
               label="X"
               type="number"
@@ -71,7 +77,7 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
               inputProps={{ step: 0.1, min: 0.1 }}
             />
             <TextField
@@ -84,7 +90,7 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
               inputProps={{ step: 0.1, min: 0.1 }}
             />
             <TextField
@@ -97,16 +103,16 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
               inputProps={{ step: 0.1, min: 0.1 }}
             />
           </Box>
         </Box>
-        <Box>
+        <Box component="div">
           <Typography variant="body2" color="text.secondary" gutterBottom>
             Translation (mm)
           </Typography>
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box component="div" sx={rowBoxSx}>
             <TextField
               label="X"
               type="number"
@@ -117,7 +123,7 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
             />
             <TextField
               label="Y"
@@ -129,7 +135,7 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
             />
             <TextField
               label="Z"
@@ -141,7 +147,7 @@ export default function TransformControls() {
                 })
               }
               size="small"
-              sx={{ flex: 1 }}
+              sx={textFieldSx}
             />
           </Box>
         </Box>

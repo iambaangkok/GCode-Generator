@@ -1,4 +1,4 @@
-import { Point3D, ShapeParameters, Layer } from '@/types'
+import { Point3D, ShapeParameters } from '@/types'
 
 /**
  * Generate geometry for basic shapes

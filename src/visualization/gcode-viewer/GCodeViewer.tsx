@@ -17,7 +17,7 @@ function Scene() {
 
 export default function GCodeViewer() {
   return (
-    <Box sx={{ width: '100%', height: '100%' }}>
+    <Box component="div" sx={{ width: '100%', height: '100%' }}>
       <Paper sx={{ width: '100%', height: '100%', overflow: 'hidden' }}>
         <Canvas
           camera={{ position: [5, 5, 5], fov: 50 }}

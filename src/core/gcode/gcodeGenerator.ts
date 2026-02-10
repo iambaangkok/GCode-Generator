@@ -1,4 +1,4 @@
-import { Point3D, GCodeLine, Layer } from '@/types'
+import { Point3D } from '@/types'
 import { PrinterSettings } from '@/stores/gcodeStore'
 
 /**

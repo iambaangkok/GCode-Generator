@@ -12,21 +12,26 @@ const darkTheme = createTheme({
   },
 })
 
+const containerSx = { height: '100vh', display: 'flex', flexDirection: 'column', p: 2 }
+const mainBoxSx = { display: 'flex', flex: 1, gap: 2, overflow: 'hidden' }
+const sidebarBoxSx = { display: 'flex', flexDirection: 'column', gap: 2, width: 300 }
+const viewerBoxSx = { flex: 1, minWidth: 0 }
+
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Container maxWidth={false} sx={{ height: '100vh', display: 'flex', flexDirection: 'column', p: 2 }}>
+      <Container maxWidth={false} sx={containerSx}>
         <Typography variant="h4" component="h1" gutterBottom>
           GCode Generator
         </Typography>
-        <Box sx={{ display: 'flex', flex: 1, gap: 2, overflow: 'hidden' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: 300 }}>
+        <Box component="div" sx={mainBoxSx}>
+          <Box component="div" sx={sidebarBoxSx}>
             <SettingsPanel />
             <TransformControls />
             <StatsPanel />
           </Box>
-          <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Box component="div" sx={viewerBoxSx}>
             <GCodeViewer />
           </Box>
         </Box>

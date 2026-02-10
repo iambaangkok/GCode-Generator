@@ -23,11 +23,12 @@ let win: BrowserWindow | null = null
 // Here, you can also use other preload
 const preload = path.join(__dirname, 'preload.js')
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite drop build replacement, respect 'process.env'
-const url = process.env.VITE_DEV_SERVER_URL
+// Default to dev server URL if not packaged and env var not set
+const url = process.env.VITE_DEV_SERVER_URL || (!app.isPackaged ? 'http://localhost:5173' : undefined)
 
 function createWindow() {
   win = new BrowserWindow({
-    icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
+    icon: path.join(process.env.VITE_PUBLIC!, 'electron-vite.svg'),
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -54,7 +55,7 @@ function createWindow() {
     win.webContents.openDevTools()
   } else {
     // win.loadFile('dist/index.html')
-    win.loadFile(path.join(process.env.DIST, 'index.html'))
+    win.loadFile(path.join(process.env.DIST!, 'index.html'))
   }
 }
 
