@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import type { ShapeParameters } from '@/types'
 
 export interface PrinterSettings {
   nozzleDiameter: number
@@ -22,16 +23,23 @@ export interface PrintStats {
   totalMoves: number
 }
 
+const defaultShapeParameters: ShapeParameters = {
+  type: 'cube',
+  dimensions: { width: 20, height: 20, depth: 20 },
+}
+
 interface GCodeState {
   printerSettings: PrinterSettings
   transform: Transform
   stats: PrintStats
   gcode: string[]
+  shapeParameters: ShapeParameters
   updatePrinterSettings: (settings: Partial<PrinterSettings>) => void
   updateTransform: (transform: Partial<Transform>) => void
   resetTransform: () => void
   setStats: (stats: Partial<PrintStats>) => void
   setGCode: (gcode: string[]) => void
+  updateShapeParameters: (params: Partial<ShapeParameters>) => void
 }
 
 const defaultPrinterSettings: PrinterSettings = {
@@ -56,11 +64,18 @@ const defaultStats: PrintStats = {
   totalMoves: 0,
 }
 
+const shapeDefaultsByType: Record<ShapeParameters['type'], ShapeParameters['dimensions']> = {
+  cube: { width: 20, height: 20, depth: 20 },
+  sphere: { radius: 10 },
+  cylinder: { radius: 10, height: 20 },
+}
+
 export const useGCodeStore = create<GCodeState>((set) => ({
   printerSettings: defaultPrinterSettings,
   transform: defaultTransform,
   stats: defaultStats,
   gcode: [],
+  shapeParameters: defaultShapeParameters,
   updatePrinterSettings: (settings) =>
     set((state) => ({
       printerSettings: { ...state.printerSettings, ...settings },
@@ -75,4 +90,17 @@ export const useGCodeStore = create<GCodeState>((set) => ({
       stats: { ...state.stats, ...stats },
     })),
   setGCode: (gcode) => set({ gcode }),
+  updateShapeParameters: (params) =>
+    set((state) => {
+      const newType = params.type ?? state.shapeParameters.type
+      const newDimensions =
+        params.type !== undefined
+          ? shapeDefaultsByType[params.type]
+          : params.dimensions !== undefined
+            ? { ...state.shapeParameters.dimensions, ...params.dimensions }
+            : state.shapeParameters.dimensions
+      return {
+        shapeParameters: { type: newType, dimensions: newDimensions },
+      }
+    }),
 }))

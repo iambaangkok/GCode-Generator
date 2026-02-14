@@ -1,7 +1,8 @@
 # Requirements: Shape Selection UI
 
-**Status**: WIP  
-**Related Requirements**: [REQ-001-DONE-project-initialization.md](REQ-001-DONE-project-initialization.md)
+**Status**: DONE  
+**Related Requirements**: [REQ-001-DONE-project-initialization.md](REQ-001-DONE-project-initialization.md)  
+**Implementation Plan**: [002-DONE-plan-shape-selection-ui.md](../.temp/002-DONE-plan-shape-selection-ui.md)
 
 ## Overview
 
@@ -18,6 +19,7 @@ Users need a way to select which shape to generate (cube, sphere, or cylinder) a
   - **Sphere**: Radius (in mm)
   - **Cylinder**: Radius, Height (in mm)
 - Shape selection should be integrated into the main UI (left sidebar)
+- Sidebar should have a vertical scrollbar when content overflows (e.g. on small windows)
 - Selected shape and dimensions should be stored in state
 - Shape selection should be visually clear (radio buttons, dropdown, or tabs)
 
@@ -30,8 +32,9 @@ Users need a way to select which shape to generate (cube, sphere, or cylinder) a
 
 ## Acceptance Criteria
 
-- [ ] Shape selector component created
-- [ ] Dimension inputs shown based on selected shape type
-- [ ] Component integrated into main App layout
-- [ ] State updates when shape/dimensions change
-- [ ] UI is intuitive and matches existing design (Material-UI)
+- [x] Shape selector component created
+- [x] Dimension inputs shown based on selected shape type
+- [x] Component integrated into main App layout
+- [x] State updates when shape/dimensions change
+- [x] UI is intuitive and matches existing design (Material-UI)
+- [x] Sidebar scrolls vertically when content overflows

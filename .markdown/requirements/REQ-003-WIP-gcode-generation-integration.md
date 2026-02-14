@@ -1,7 +1,7 @@
 # Requirements: GCode Generation Integration
 
 **Status**: WIP  
-**Related Requirements**: [REQ-001-DONE-project-initialization.md](REQ-001-DONE-project-initialization.md), [REQ-002-WIP-shape-selection-ui.md](REQ-002-WIP-shape-selection-ui.md)
+**Related Requirements**: [REQ-001-DONE-project-initialization.md](REQ-001-DONE-project-initialization.md), [REQ-002-DONE-shape-selection-ui.md](REQ-002-DONE-shape-selection-ui.md)
 
 ## Overview
 

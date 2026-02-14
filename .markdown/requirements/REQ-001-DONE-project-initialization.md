@@ -20,7 +20,7 @@ It should be:
 - ⚠️ For starter, lets focus on a simple GCode Generator for printing simple models like cube, sphere, cylinder, etc.
   - ✅ Core generation functions exist
   - ✅ Shape generators exist
-  - ❌ Shape selection UI not implemented - See REQ-002
+  - ✅ Shape selection UI implemented - See REQ-002
   - ❌ No way to trigger GCode generation - See REQ-003
   - ✅ System designed for complex shapes (architecture supports extensibility)
 - ✅ User should be able to warp / skew / rotate / transform the model.
@@ -55,7 +55,7 @@ It should be:
 - ✅ Documentation created (README, architecture)
 
 **Next Steps**: Continue with feature requirements:
-- [REQ-002-WIP-shape-selection-ui.md](REQ-002-WIP-shape-selection-ui.md) - Shape selection UI
+- [REQ-002-DONE-shape-selection-ui.md](REQ-002-DONE-shape-selection-ui.md) - Shape selection UI
 - [REQ-003-WIP-gcode-generation-integration.md](REQ-003-WIP-gcode-generation-integration.md) - GCode generation integration
 - [REQ-004-WIP-gcode-visualization.md](REQ-004-WIP-gcode-visualization.md) - GCode visualization
 - [REQ-005-WIP-statistics-calculation.md](REQ-005-WIP-statistics-calculation.md) - Statistics calculation

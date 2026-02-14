@@ -4,6 +4,7 @@ import { Container, Typography, Box } from '@mui/material'
 import GCodeViewer from './visualization/gcode-viewer/GCodeViewer'
 import StatsPanel from './ui/stats/StatsPanel'
 import SettingsPanel from './ui/settings/SettingsPanel'
+import ShapeSelector from './ui/shapes/ShapeSelector'
 import TransformControls from './ui/transforms/TransformControls'
 
 const darkTheme = createTheme({
@@ -14,7 +15,14 @@ const darkTheme = createTheme({
 
 const containerSx = { height: '100vh', display: 'flex', flexDirection: 'column', p: 2 }
 const mainBoxSx = { display: 'flex', flex: 1, gap: 2, overflow: 'hidden' }
-const sidebarBoxSx = { display: 'flex', flexDirection: 'column', gap: 2, width: 300 }
+const sidebarBoxSx = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 2,
+  width: 300,
+  minHeight: 0,
+  overflowY: 'auto',
+}
 const viewerBoxSx = { flex: 1, minWidth: 0 }
 
 function App() {
@@ -27,6 +35,7 @@ function App() {
         </Typography>
         <Box component="div" sx={mainBoxSx}>
           <Box component="div" sx={sidebarBoxSx}>
+            <ShapeSelector />
             <SettingsPanel />
             <TransformControls />
             <StatsPanel />
