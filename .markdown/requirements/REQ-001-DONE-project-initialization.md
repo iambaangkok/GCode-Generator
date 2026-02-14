@@ -21,7 +21,7 @@ It should be:
   - ✅ Core generation functions exist
   - ✅ Shape generators exist
   - ✅ Shape selection UI implemented - See REQ-002
-  - ❌ No way to trigger GCode generation - See REQ-003
+  - ✅ GCode generation trigger - See REQ-003
   - ✅ System designed for complex shapes (architecture supports extensibility)
 - ✅ User should be able to warp / skew / rotate / transform the model.
 - ✅ User should be able to set basic printer settings.
@@ -56,7 +56,7 @@ It should be:
 
 **Next Steps**: Continue with feature requirements:
 - [REQ-002-DONE-shape-selection-ui.md](REQ-002-DONE-shape-selection-ui.md) - Shape selection UI
-- [REQ-003-WIP-gcode-generation-integration.md](REQ-003-WIP-gcode-generation-integration.md) - GCode generation integration
+- [REQ-003-DONE-gcode-generation-integration.md](REQ-003-DONE-gcode-generation-integration.md) - GCode generation integration
 - [REQ-004-WIP-gcode-visualization.md](REQ-004-WIP-gcode-visualization.md) - GCode visualization
 - [REQ-005-WIP-statistics-calculation.md](REQ-005-WIP-statistics-calculation.md) - Statistics calculation
 - [REQ-006-WIP-gcode-export.md](REQ-006-WIP-gcode-export.md) - GCode export functionality

@@ -6,6 +6,8 @@ import StatsPanel from './ui/stats/StatsPanel'
 import SettingsPanel from './ui/settings/SettingsPanel'
 import ShapeSelector from './ui/shapes/ShapeSelector'
 import TransformControls from './ui/transforms/TransformControls'
+import GenerateButton from './ui/generate/GenerateButton'
+import GCodeDisplay from './ui/gcode/GCodeDisplay'
 
 const darkTheme = createTheme({
   palette: {
@@ -42,6 +44,10 @@ function App() {
           </Box>
           <Box component="div" sx={viewerBoxSx}>
             <GCodeViewer />
+          </Box>
+          <Box component="div" sx={sidebarBoxSx}>
+            <GenerateButton />
+            <GCodeDisplay />
           </Box>
         </Box>
       </Container>

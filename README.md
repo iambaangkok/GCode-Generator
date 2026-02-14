@@ -125,9 +125,9 @@ See [project-structure.md](.markdown/project-structure.md) for detailed structur
 - [x] Printer settings panel
 
 ### Phase 2: GCode Generation (In Progress)
-- [ ] Shape selection UI
-- [ ] GCode generation for basic shapes
-- [ ] Statistics calculation
+- [x] Shape selection UI
+- [x] GCode generation for basic shapes
+- [x] Statistics calculation
 - [ ] GCode export functionality
 
 ### Phase 3: Enhanced Features

@@ -1,7 +1,7 @@
 # Requirements: GCode Visualization
 
 **Status**: WIP  
-**Related Requirements**: [REQ-001-DONE-project-initialization.md](REQ-001-DONE-project-initialization.md), [REQ-003-WIP-gcode-generation-integration.md](REQ-003-WIP-gcode-generation-integration.md)
+**Related Requirements**: [REQ-001-DONE-project-initialization.md](REQ-001-DONE-project-initialization.md), [REQ-003-DONE-gcode-generation-integration.md](REQ-003-DONE-gcode-generation-integration.md)
 
 ## Overview
 
