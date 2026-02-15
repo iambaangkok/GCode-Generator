@@ -33,6 +33,7 @@ interface GCodeState {
   transform: Transform
   stats: PrintStats
   gcode: string[]
+  gcodeVersion: number
   shapeParameters: ShapeParameters
   updatePrinterSettings: (settings: Partial<PrinterSettings>) => void
   updateTransform: (transform: Partial<Transform>) => void
@@ -75,6 +76,7 @@ export const useGCodeStore = create<GCodeState>((set) => ({
   transform: defaultTransform,
   stats: defaultStats,
   gcode: [],
+  gcodeVersion: 0,
   shapeParameters: defaultShapeParameters,
   updatePrinterSettings: (settings) =>
     set((state) => ({
@@ -89,7 +91,7 @@ export const useGCodeStore = create<GCodeState>((set) => ({
     set((state) => ({
       stats: { ...state.stats, ...stats },
     })),
-  setGCode: (gcode) => set({ gcode }),
+  setGCode: (gcode) => set((s) => ({ gcode, gcodeVersion: s.gcodeVersion + 1 })),
   updateShapeParameters: (params) =>
     set((state) => {
       const newType = params.type ?? state.shapeParameters.type

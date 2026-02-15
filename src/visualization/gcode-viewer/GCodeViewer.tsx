@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Grid } from '@react-three/drei'
 import { Suspense } from 'react'
 import { Box, Paper } from '@mui/material'
+import { GCodePaths } from './GCodePaths'
 
 function Scene() {
   return (
@@ -10,7 +11,7 @@ function Scene() {
       <pointLight position={[10, 10, 10]} />
       <Grid args={[10, 10]} cellColor="#6f6f6f" sectionColor="#9d4b4b" />
       <OrbitControls />
-      {/* GCode visualization will be added here */}
+      <GCodePaths />
     </>
   )
 }

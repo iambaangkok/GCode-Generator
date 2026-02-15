@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { Button, CircularProgress, Box } from '@mui/material'
 import { useGCodeStore } from '@/stores/gcodeStore'
-import { generateShapePoints } from '@/core/geometry/shapeGenerators'
-import { transformPoints } from '@/core/transforms/transformUtils'
-import { generateFullGCode } from '@/core/gcode/gcodeGenerator'
+import { generateFullGCodeFromShape } from '@/core/gcode/gcodeGenerator'
 import { calculateStatsFromGCode } from '@/core/gcode/statsCalculator'
 
 export default function GenerateButton() {
@@ -19,14 +17,11 @@ export default function GenerateButton() {
     setLoading(true)
     setTimeout(() => {
       try {
-        const points = generateShapePoints(shapeParameters)
-        const transformedPoints = transformPoints(
-          points,
-          transform.rotation,
-          transform.scale,
-          transform.translation
+        const gcode = generateFullGCodeFromShape(
+          shapeParameters,
+          transform,
+          printerSettings
         )
-        const gcode = generateFullGCode(transformedPoints, printerSettings)
         const stats = calculateStatsFromGCode(gcode)
         setGCode(gcode)
         setStats(stats)

@@ -1,5 +1,8 @@
 import { Point3D } from '@/types'
-import { PrinterSettings } from '@/stores/gcodeStore'
+import { PrinterSettings, Transform } from '@/stores/gcodeStore'
+import { getLayerContourAtZ, getShapeZRange } from '@/core/geometry/shapeSlicers'
+import { transformPoint } from '@/core/transforms/transformUtils'
+import type { ShapeParameters } from '@/types'
 
 /**
  * Generate GCode from geometry points
@@ -97,7 +100,7 @@ export function generateGCodeFromPoints(
       // Move to first point
       const firstPoint = layerPoints[0]
       gcode.push(
-        generateGCodeLine(firstPoint.x, firstPoint.y, undefined, undefined, feedRate, 'Move to start')
+        `G1 ${generateGCodeLine(firstPoint.x, firstPoint.y, undefined, undefined, feedRate, 'Move to start')}`
       )
       
       // Generate moves for this layer
@@ -113,14 +116,14 @@ export function generateGCodeFromPoints(
         totalExtrusion += extrusion
         
         gcode.push(
-          generateGCodeLine(
+          `G1 ${generateGCodeLine(
             curr.x,
             curr.y,
             curr.z,
             totalExtrusion,
             feedRate,
             `Move ${i}`
-          )
+          )}`
         )
       }
     }
@@ -138,4 +141,92 @@ export function generateFullGCode(
   const footer = generateGCodeFooter()
   
   return [...header, ...body, ...footer]
+}
+
+/**
+ * Generate GCode by slicing the shape at each layer height.
+ * Produces proper layer contours (e.g., circles for cylinder) instead of filtering vertices.
+ */
+export function generateFullGCodeFromShape(
+  shapeParams: ShapeParameters,
+  transform: Transform,
+  settings: PrinterSettings
+): string[] {
+  const gcode: string[] = []
+  const feedRate = settings.printSpeed * 60
+  const layerHeight = settings.layerHeight
+
+  const layerArea = settings.nozzleDiameter * settings.layerHeight
+  const filamentArea = Math.PI * Math.pow(settings.filamentDiameter / 2, 2)
+  const extrusionMultiplier = layerArea / filamentArea
+
+  const center: Point3D = { x: 0, y: 0, z: 0 }
+  const { minZ, maxZ } = getShapeZRange(shapeParams, center)
+
+  // Prepass: find minimum Z of transformed shape so we can offset to z >= 0
+  let outputMinZ = Infinity
+  for (let z = minZ + layerHeight / 2; z <= maxZ; z += layerHeight) {
+    const layerPoints = getLayerContourAtZ(shapeParams, z, center)
+    for (const p of layerPoints) {
+      const t = transformPoint(p, transform.rotation, transform.scale, transform.translation)
+      outputMinZ = Math.min(outputMinZ, t.z)
+    }
+  }
+  const zOffset = outputMinZ < 0 ? -outputMinZ : 0
+
+  let totalExtrusion = 0
+
+  gcode.push(...generateGCodeHeader(settings))
+
+  for (let z = minZ + layerHeight / 2; z <= maxZ; z += layerHeight) {
+    const layerPoints = getLayerContourAtZ(shapeParams, z, center)
+    if (layerPoints.length === 0) continue
+
+    const transformed = layerPoints.map((p) => {
+      const t = transformPoint(p, transform.rotation, transform.scale, transform.translation)
+      return { ...t, z: t.z + zOffset }
+    })
+
+    const layerZ = transformed[0].z
+    const layerIndex = Math.round((z - minZ) / layerHeight)
+    gcode.push(`; Layer ${layerIndex + 1}`)
+    gcode.push(`G1 Z${layerZ.toFixed(3)} F${feedRate * 0.5} ; Move to layer`)
+
+    gcode.push(
+      `G1 ${generateGCodeLine(
+        transformed[0].x,
+        transformed[0].y,
+        undefined,
+        undefined,
+        feedRate,
+        'Move to start'
+      )}`
+    )
+
+    for (let i = 1; i < transformed.length; i++) {
+      const prev = transformed[i - 1]
+      const curr = transformed[i]
+      const distance = Math.sqrt(
+        Math.pow(curr.x - prev.x, 2) +
+        Math.pow(curr.y - prev.y, 2) +
+        Math.pow(curr.z - prev.z, 2)
+      )
+      const extrusion = distance * extrusionMultiplier
+      totalExtrusion += extrusion
+
+      gcode.push(
+        `G1 ${generateGCodeLine(
+          curr.x,
+          curr.y,
+          curr.z,
+          totalExtrusion,
+          feedRate,
+          `Move ${i}`
+        )}`
+      )
+    }
+  }
+
+  gcode.push(...generateGCodeFooter())
+  return gcode
 }
